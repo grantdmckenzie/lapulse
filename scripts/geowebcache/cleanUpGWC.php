@@ -20,10 +20,15 @@
 		  $count = 1;
 		  foreach($files as $key=>$file) {
 		    $d = explode("_", $file);
-		    $oldname = $base."gwc/".$entry."/".$file;
-		    $newname = $base."gwc/".$entry."/l".$d[2]."_".$count;
-		    rename($oldname, $newname);
-		    $count++;
+		    if($d[2] == "10")
+		      $oldname = $base."gwc/".$entry."/EPSG_900913_10_".$d[3];
+		      $newname = $base."gwc/".$entry."/l10_".$count;
+		      rename($oldname, $newname);
+		      $oldname = $base."gwc/".$entry."/EPSG_900913_11_".$d[3];
+		      $newname = $base."gwc/".$entry."/l11_".$count;
+		      rename($oldname, $newname);
+		      $count++;
+		    }
 		  }
 	      }
 	  }

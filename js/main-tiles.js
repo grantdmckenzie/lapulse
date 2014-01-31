@@ -18,12 +18,10 @@
 	document.getElementById('lbl').innerHTML = day + " " + num + ":00";
 	
 	_sig++;
-	getLayers();
 	showLayer(_sig);
-	//if (_sig%2==1) {
+	if (_sig%5==4) {
 	    getLayers();
-	//}
-	
+	}
     }
       
     function drawLegend(base) {

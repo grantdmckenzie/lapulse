@@ -43,7 +43,7 @@
 		    version: '1.1.1'
 		}); */
 		var x = dirs[key];
-		layers[key+'_'+i] = new L.TileLayer.GWC('http://stko-poi.geog.ucsb.edu/la/gwc/'+x[10][i]+'/{dir_x}_{dir_y}/{x}_{y}.png',{tms:true});
+		layers[key+'_'+i] = new L.TileLayer.GWC('http://stko-poi.geog.ucsb.edu/la/gwc/stko_lvg_'+key+'/l{z}_'+i+'/{dir_x}_{dir_y}/{x}_{y}.png',{tms:true});
 		layers[key+'_'+i].addTo(_map);
 		layers[key+'_'+i].setOpacity(0);
 	    }
