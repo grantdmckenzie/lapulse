@@ -1,0 +1,6 @@
+curl -v -u admin:stko1234 -XPOST -H "Content-type: text/xml" -d '<seedRequest><name>stko:lvg_college</name><srs><number>900913</number></srs><zoomStart>10</zoomStart><zoomStop>11</zoomStop><format>image/png</format><type>reseed</type><threadCount>2</threadCount><parameters><entry><string>STYLES</string><string>la_coll_1</string></entry></parameters></seedRequest>'  "http://stko-poi.geog.ucsb.edu:8080/geoserver/gwc/rest/seed/stko:lvg_college.xml"
+
+curl -v -u admin:stko1234 -XPOST -H "Content-type: application/vnd.ogc.sld+xml" -d @la_arts_16.sld http://stko-poi.geog.ucsb.edu:8080/geoserver/rest/styles/
+
+
+curl -v -u admin:stko1234 -XPOST -H "Content-type: text/xml" -d @la_arts.xml  "http://stko-poi.geog.ucsb.edu:8080/geoserver/gwc/rest/layers/stko:lvg_arts.xml"
