@@ -20,7 +20,7 @@
 		  $count = 1;
 		  foreach($files as $key=>$file) {
 		    $d = explode("_", $file);
-		    if($d[2] == "10")
+		    if($d[2] == "10") {
 		      $oldname = $base."gwc/".$entry."/EPSG_900913_10_".$d[3];
 		      $newname = $base."gwc/".$entry."/l10_".$count;
 		      rename($oldname, $newname);
