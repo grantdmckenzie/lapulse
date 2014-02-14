@@ -1,2 +1,4 @@
+handlers/db.inc
+handlers/tokens.inc
 scripts/db.inc
 scripts/geoserver_admin.inc
