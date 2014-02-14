@@ -1,10 +1,11 @@
+    var _MACHINE = "prod";
 
     var _LAPULSE = {};
     _LAPULSE.const = {};
-    _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/prod/gwc/";
+    _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/"+_MACHINE+"/gwc/";
     _LAPULSE.const.namespace = "stko_lvg_"; 
     _LAPULSE.const.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    _LAPULSE.const.errorTile = "http://stko-poi.geog.ucsb.edu/prod/gwc/empty.png";
+    _LAPULSE.const.errorTile = "empty.png";
     _LAPULSE.const.tileBounds = L.latLngBounds(L.latLng(33.5846214294434, -118.838417053223), L.latLng(34.3280487060547, -117.515472412109));
     
     
@@ -13,7 +14,7 @@
 	this.getLayers = function() {
 	    for(var i=_groupNum; i<(_groupNum+1);i++) {
 		for(var key in this.base) {
-		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:this.const.errorTile, bounds:this.const.tileBounds};
+		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:this.const.gwc_base+this.const.errorTile, bounds:this.const.tileBounds};
 		    // this.layers[key+'_'+i] = new L.tileLayer(this.const.gwc_base + this.const.namespace +key+'/1/{z}/{x}/{y}.png', options);
 		    this.layers[key+'_'+i] = new L.TileLayer.GWC(this.const.gwc_base + this.const.namespace +key+'/l{z}_'+i+'/{dir_x}_{dir_y}/{x}_{y}.png', options);
 		    this.layers[key+'_'+i].addTo(_map);
@@ -43,7 +44,7 @@
      	document.getElementById('legend').innerHTML = "";
 	var content = "";
 	for(var key in this.base) {
-	      content += "<div id='"+key+"_c' onclick='toggleLayer(\""+key+"\");' style='cursor:pointer;margin:5px;border-radius:5px;width:10px;height:10px;clear:both;float:left;background-color:#"+this.base[key].color+"'></div> ";
+	      content += "<div id='"+key+"_c' onclick='_LAPULSE.toggleLayer(\""+key+"\");' style='cursor:pointer;margin:5px;border-radius:5px;width:10px;height:10px;clear:both;float:left;background-color:#"+this.base[key].color+"'></div> ";
 	      content += "<div style='float:left;margin-top:5px;'>"+this.base[key].name+"</div>";
 	}
 	document.getElementById('legend').innerHTML = content; 
@@ -59,4 +60,17 @@
 		delete this.layers[old];
 	    }
 	}
+    }
+    
+    _LAPULSE.toggleLayer = function(name) {
+	var b = name.split("_");
+	name = b[0]+"_"+_sig;
+	if(this.layers[name].options.opacity == 1) {
+	  this.layers[name].setOpacity(0);
+	  document.getElementById(b[0]+'_c').style.backgroundColor = '#eeeeee';
+	} else {
+	  this.layers[name].setOpacity(1);
+	  document.getElementById(b[0]+'_c').style.backgroundColor = '#'+this.base[b[0]].color;
+	}
+	
     }
