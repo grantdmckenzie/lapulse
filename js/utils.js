@@ -1,7 +1,7 @@
 
     var _LAPULSE = {};
     _LAPULSE.const = {};
-    _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/la/gwc/";
+    _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/prod/gwc/";
     _LAPULSE.const.namespace = "stko_lvg_"; 
     _LAPULSE.const.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     _LAPULSE.const.errorTile = "http://stko-poi.geog.ucsb.edu/la/gwc/empty.png";
