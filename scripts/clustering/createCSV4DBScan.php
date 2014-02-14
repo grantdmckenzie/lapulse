@@ -3,7 +3,7 @@
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
  
-  require_once('db.inc');
+  require_once('../db.inc');
   
   $query = "select level0, name from categories_full where level1 = ''";
   $result = pg_query($query) or die();
