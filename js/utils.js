@@ -4,7 +4,7 @@
     _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/prod/gwc/";
     _LAPULSE.const.namespace = "stko_lvg_"; 
     _LAPULSE.const.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    _LAPULSE.const.errorTile = "http://stko-poi.geog.ucsb.edu/la/gwc/empty.png";
+    _LAPULSE.const.errorTile = "http://stko-poi.geog.ucsb.edu/prod/gwc/empty.png";
     _LAPULSE.const.tileBounds = L.latLngBounds(L.latLng(33.5846214294434, -118.838417053223), L.latLng(34.3280487060547, -117.515472412109));
     
     
