@@ -4,13 +4,18 @@
     _LAPULSE.const.gwc_base = "http://stko-poi.geog.ucsb.edu/la/gwc/";
     _LAPULSE.const.namespace = "stko_lvg_"; 
     _LAPULSE.const.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    _LAPULSE.const.errorTile = "http://stko-poi.geog.ucsb.edu/la/gwc/empty.png";
+    _LAPULSE.const.tileBounds = L.latLngBounds(L.latLng(33.5846214294434, -118.838417053223), L.latLng(34.3280487060547, -117.515472412109));
+    
     
     _LAPULSE.constructBase = function() {
-      
+    
 	this.getLayers = function() {
 	    for(var i=_groupNum; i<(_groupNum+1);i++) {
 		for(var key in this.base) {
-		    this.layers[key+'_'+i] = new L.TileLayer.GWC(this.const.gwc_base + this.const.namespace +key+'/l{z}_'+i+'/{dir_x}_{dir_y}/{x}_{y}.png',{tms:true});
+		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:'http://stko-poi.geog.ucsb.edu/la/gwc/empty.png', bounds:this.const.tileBounds};
+		    // this.layers[key+'_'+i] = new L.tileLayer(this.const.gwc_base + this.const.namespace +key+'/1/{z}/{x}/{y}.png', options);
+		    this.layers[key+'_'+i] = new L.TileLayer.GWC(this.const.gwc_base + this.const.namespace +key+'/l{z}_'+i+'/{dir_x}_{dir_y}/{x}_{y}.png', options);
 		    this.layers[key+'_'+i].addTo(_map);
 		    this.layers[key+'_'+i].setOpacity(0);
 		}
@@ -29,7 +34,7 @@
 	this.base.outdoor = {color:'ff3',layer:{},name:'Outdoors & Recreation', id: '4d4b7105d754a06377d81259'};
 	this.base.professional = {color:'a65628',layer:{},name:'Professional & Other Places', id: '4d4b7105d754a06375d81259'};
 	this.base.shop = {color:'984ea3',layer:{},name:'Shop & Service', id: '4d4b7105d754a06378d81259'};
-	this.base.travel = {color:'4daf4a',layer:{},name:'Travel & Transport', id: '4d4b7105d754a06379d81259'};
+	this.base.travel = {color:'4daf4a',layer:{},name:'Travel & Transport', id: '4d4b7105d754a06379d81259'}; 
   
 	this.getLayers();
     }
