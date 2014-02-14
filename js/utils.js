@@ -13,7 +13,7 @@
 	this.getLayers = function() {
 	    for(var i=_groupNum; i<(_groupNum+1);i++) {
 		for(var key in this.base) {
-		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:tile.const.errorTile, bounds:this.const.tileBounds};
+		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:this.const.errorTile, bounds:this.const.tileBounds};
 		    // this.layers[key+'_'+i] = new L.tileLayer(this.const.gwc_base + this.const.namespace +key+'/1/{z}/{x}/{y}.png', options);
 		    this.layers[key+'_'+i] = new L.TileLayer.GWC(this.const.gwc_base + this.const.namespace +key+'/l{z}_'+i+'/{dir_x}_{dir_y}/{x}_{y}.png', options);
 		    this.layers[key+'_'+i].addTo(_map);
