@@ -1,4 +1,4 @@
-    var _MACHINE = "prod";
+    var _MACHINE = "dev";
 
     var _LAPULSE = {};
     _LAPULSE.const = {};

@@ -5,7 +5,7 @@
       @function: rename the messed up directory structure that GeoWebCache inflicts on us.
   */
   
-  $base = "/var/www/la/";
+  $base = "/home/poi/lapulse/";
   if ($handle = opendir($base.'gwc/')) {
       while (false !== ($entry = readdir($handle))) {
 	  if (substr($entry,0,4) == "stko") {
