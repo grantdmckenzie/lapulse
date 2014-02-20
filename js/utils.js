@@ -19,7 +19,7 @@
 		    //this.layers[2][key+'_'+i].setOpacity(0);
 		    
 		    // Vector Tiles
-		    this.layers[3][key+'_'+i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
+		    this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
 		    //this.layers[3][key+'_'+i].addTo(_LAPULSE.map);
 		    //this.layers[3][key+'_'+i].setOpacity(0);
 		}
@@ -105,7 +105,7 @@
 	      this.hideLevel3();
 	      for(var key in this.layers[3]) {
 		  var x = key.split("_");
-		  this.layers[3][x[0]+"_"+num].addTo(this.map);
+		  this.layers[3][num].addTo(this.map);
 	      }
 	  }
 	  this.drawLegend();
