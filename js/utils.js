@@ -85,6 +85,7 @@
     _LAPULSE.showPOI = function(num) {
       if (this.scale.level != this.scale.prevlevel || num != this.time.prev) {
 	  if (this.scale.level == 1) {
+	      this.hideLevel1();
 	      this.hideLevel2();
 	      this.hideLevel3();
 	      this.layers[1][num].addTo(this.map);
