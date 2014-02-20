@@ -12,7 +12,8 @@
       include 'config_topo.inc';
       fwrite($file, $config);
       fclose($file);
-      $seed = "/home/grantdmckenzie/Downloads/TileStache-1.49.8/scripts/tilestache-seed.py -c /var/www/tilestache//var/www/tilestache/configFiles/".$extension.".cfg -l ".$filename." -d /var/www/tilestache/ -b 33.5678749084473 -118.84309387207 34.3265800476074 -117.49584197998 -e topojson 14";
+      $seed = "/home/grantdmckenzie/Downloads/TileStache-1.49.8/scripts/tilestache-seed.py -c /var/www/tilestache/configFiles/".$extension.".cfg -l ".$filename." -d /var/www/tilestache/ -b 33.5678749084473 -118.84309387207 34.3265800476074 -117.49584197998 -e topojson 14 15 16";
       exec($seed);
+      // echo $seed;
   }
 ?>

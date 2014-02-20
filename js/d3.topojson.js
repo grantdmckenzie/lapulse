@@ -6,7 +6,7 @@ var tooltip = d3.select("body")
 L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
     onAdd : function(map) {
         L.TileLayer.prototype.onAdd.call(this,map);
-        this._path = d3.geo.path().pointRadius(4).projection(function(d) {
+        this._path = d3.geo.path().pointRadius(5).projection(function(d) {
             var point = map.latLngToLayerPoint(new L.LatLng(d[1],d[0]));
             return [point.x,point.y];
         });
@@ -28,6 +28,7 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
                 } else {
                     var geoJson = topojson.feature(tjData, tjData.objects[self.options.layerName]);
                     tile.xhr = null;
+		
                     tile.nodes = d3.select(_LAPULSE.map._container).select("svg").append("g");
                     tile.nodes.selectAll("path")
                         .data(geoJson.features).enter()
@@ -40,19 +41,20 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
 			  }
                         })
                         .style("fill-opacity", function(d) { 
-			  return (parseFloat(d.properties.s1)+0.005)*20;
+			  var x = "s"+_LAPULSE.time.hour;
+			  return parseInt(d.properties[x])/200;
 			})
 			.on("mouseover", function(){
 			    return tooltip.style("visibility", "visible");})
 			.on("mousemove", function(d){
-			    $('.tooltip').html("<b>Venue:</b> "+d.properties.name + "<br/><b>FS Category: </b>" + d.properties.catname + "<br/><b>Temporal Probability: </b>" + d.properties.s1  );
+			    $('.tooltip').html("<b>Venue:</b> "+d.properties.name + "<br/><b>FS Category: </b>" + d.properties.catname + "<br/><b>Temporal Probability: </b>" + parseInt(d.properties.s1)/1000  );
 			    return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 			.on("mouseout", function(){
 			    return tooltip.style("visibility", "hidden");});
-                        //.append("svg:title")
-                        //.text(function(d) {return d.properties.catname; });
                 }
             });
-        }
+        } else {
+	    tile.nodes = d3.select(_LAPULSE.map._container).select("svg").append("g");
+	}
     }
 });

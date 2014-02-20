@@ -19,7 +19,7 @@
 		    //this.layers[2][key+'_'+i].setOpacity(0);
 		    
 		    // Vector Tiles
-		    this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
+		    this.layers[3]['s_'+i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
 		    //this.layers[3][key+'_'+i].addTo(_LAPULSE.map);
 		    //this.layers[3][key+'_'+i].setOpacity(0);
 		}
@@ -29,7 +29,7 @@
 	this.layers = [];
 	this.layers[1] = {};
 	this.layers[2] = {};
-	this.layers[3] = {};
+	this.layers[3] = [];
 
 	this.base.residence = {color:'a65628',layer:{},name:'Residence', id: '4e67e38e036454776db1fb3a', legend:true};
 	this.base.college = {color:'377eb8',layer:{}, name: 'College & University', id: '4d4b7105d754a06372d81259', legend:true};
@@ -78,8 +78,9 @@
     }
     _LAPULSE.hideLevel3 = function() {
 	for(var key in this.layers[3]) {
-	    _LAPULSE.map.removeLayer(this.layers[3][key]);
+	    _LAPULSE.map.removeLayer(_LAPULSE.layers[3][key]);
 	}
+	d3.select(_LAPULSE.map._container).select("svg").selectAll("path").remove();	// get rid of previous svg
     }
     
     _LAPULSE.showPOI = function(num) {
@@ -103,10 +104,7 @@
 	      this.hideLevel1();
 	      this.hideLevel2();
 	      this.hideLevel3();
-	      for(var key in this.layers[3]) {
-		  var x = key.split("_");
-		  this.layers[3][num].addTo(this.map);
-	      }
+	      _LAPULSE.layers[3]['s_'+num].addTo(_LAPULSE.map);
 	  }
 	  this.drawLegend();
       }
