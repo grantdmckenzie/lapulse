@@ -4,44 +4,34 @@
     _LAPULSE.constructBase = function() {
     
 	this.getLayers = function() {
-	    for(var i=1; i<6;i++) {
+	    for(var i=1; i<2;i++) {
 		for(var key in this.base) {
-		    var options = {tms:true, unloadInvisibleTiles: true, errorTileUrl:this.const.gwc_base+this.const.errorTile, bounds:this.const.tileBounds};
-		    
-		    // Overview Layer
-		    this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true});
-		    //this.layers[1][i].addTo(_LAPULSE.map);
-		    //this.layers[3][key+'_'+i].setOpacity(0);
-		    
 		    // Raster Tiles
 		    this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true});
-		    //this.layers[2][key+'_'+i].addTo(_LAPULSE.map);
-		    //this.layers[2][key+'_'+i].setOpacity(0);
-		    
-		    // Vector Tiles
-		    this.layers[3]['s_'+i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
-		    //this.layers[3][key+'_'+i].addTo(_LAPULSE.map);
-		    //this.layers[3][key+'_'+i].setOpacity(0);
 		}
+		// Overview Layer
+		this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true});
+		// Vector Tiles
+		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
 	    }
 	}    
 	this.base = {};
 	this.layers = [];
 	this.layers[1] = {};
 	this.layers[2] = {};
-	this.layers[3] = [];
+	this.layers[3] = {};
 
-	this.base.residence = {color:'a65628',layer:{},name:'Residence', id: '4e67e38e036454776db1fb3a', legend:true};
-	this.base.college = {color:'377eb8',layer:{}, name: 'College & University', id: '4d4b7105d754a06372d81259', legend:true};
-	this.base.arts = {color:'e41a1c',layer:{},name:'Arts & Entertainment', id: '4d4b7104d754a06370d81259', legend:true};
-	this.base.nightlife = {color:'984ea3',layer:{},name:'Nightlife Spot', id: '4d4b7105d754a06376d81259', legend:true};
-	this.base.food = {color:'4daf4a',layer:{},name:'Food', id: '4d4b7105d754a06374d81259', legend:true};
-	// this.base.event = {color:'ff3',layer:{}};
-	this.base.outdoor = {color:'ff7f00',layer:{},name:'Outdoors & Recreation', id: '4d4b7105d754a06377d81259', legend:true};
-	this.base.professional = {color:'ffff33',layer:{},name:'Professional & Other Places', id: '4d4b7105d754a06375d81259', legend:true};
-	this.base.shop = {color:'f781bf',layer:{},name:'Shop & Service', id: '4d4b7105d754a06378d81259', legend:true};
-	this.base.travel = {color:'999999',layer:{},name:'Travel & Transport', id: '4d4b7105d754a06379d81259', legend:true}; 
-  
+	this.base.res = {color:'a6cee3',layer:{},name:'Residential', id: '0', legend:true};
+	this.base.acc = {color:'1f78b4',layer:{}, name: 'Accommodation, Eating and Drinking', id: '1', legend:true};
+	this.base.att = {color:'b2df8a',layer:{},name:'Attractions', id: '2', legend:true};
+	this.base.com = {color:'33a02c',layer:{},name:'Commercial Services', id: '3', legend:true};
+	this.base.edu = {color:'fb9a99',layer:{},name:'Education and Health', id: '4', legend:true};
+	this.base.ent = {color:'e31a1c',layer:{},name:'Entertainment and Nightlife', id: '5', legend:true};
+	this.base.pub = {color:'6a3d9a',layer:{},name:'Public Infrastructure and Community', id: '6', legend:true};
+	this.base.ret = {color:'fdbf6f',layer:{},name:'Retail', id: '7', legend:true};
+	this.base.spo = {color:'ff7f00',layer:{},name:'Sports and Recreation', id: '8', legend:true}; 
+	this.base.tra = {color:'cab2d6',layer:{},name:'Transportation', id: '9', legend:true}; 
+	
 	this.getLayers();
     }
     
@@ -53,7 +43,7 @@
 	  content += "<div style='float:left;margin-top:5px;'>All Venues</div>";
 	  $('#legend').animate({height:"25px"});
 	} else {
-	  $('#legend').animate({height:"180px"});
+	  $('#legend').animate({height:"200px"});
 	  for(var key in this.base) {
 	    if (!this.base[key].legend)
 		var col = "eeeeee";
@@ -90,6 +80,7 @@
 	      this.hideLevel2();
 	      this.hideLevel3();
 	      this.layers[1][num].addTo(this.map);
+	      
 	  } else if (this.scale.level == 2) {
 	      this.hideLevel1();
 	      this.hideLevel2();
@@ -104,7 +95,7 @@
 	      this.hideLevel1();
 	      this.hideLevel2();
 	      this.hideLevel3();
-	      _LAPULSE.layers[3]['s_'+num].addTo(_LAPULSE.map);
+	      _LAPULSE.layers[3][num].addTo(_LAPULSE.map);
 	  }
 	  this.drawLegend();
       }
@@ -112,26 +103,40 @@
       this.time.prev = num;
     }
     
+    
     _LAPULSE.toggleLayer = function(name) {
 	var b = name.split("_");
 	name = b[0]+"_"+this.time.hour;
-	if(this.layers[2][name].options.opacity == 1) {
-	  this.layers[2][name].setOpacity(0);
-	  document.getElementById(b[0]+'_c').style.backgroundColor = '#eeeeee';
-	  this.base[b[0]].legend = false;
+	if(this.scale.level < 3) {
+	  if(this.layers[2][name].options.opacity == 1) {
+	    this.layers[2][name].setOpacity(0);
+	    document.getElementById(b[0]+'_c').style.backgroundColor = '#eeeeee';
+	    this.base[b[0]].legend = false;
+	  } else {
+	    this.layers[2][name].setOpacity(1);
+	    document.getElementById(b[0]+'_c').style.backgroundColor = '#'+this.base[b[0]].color;
+	    this.base[b[0]].legend = true;
+	  }
 	} else {
-	  this.layers[2][name].setOpacity(1);
-	  document.getElementById(b[0]+'_c').style.backgroundColor = '#'+this.base[b[0]].color;
-	  this.base[b[0]].legend = true;
+	   var x = d3.select(_LAPULSE.map._container).select("svg").selectAll("[osid='"+this.base[b[0]].id+"']");
+	   if (x.style("visibility") != "hidden") {
+	      x.style("visibility","hidden");
+	      document.getElementById(b[0]+'_c').style.backgroundColor = '#eeeeee';
+	      this.base[b[0]].legend = false;
+	   } else {
+	      x.style("visibility","visible");
+	      document.getElementById(b[0]+'_c').style.backgroundColor = '#'+this.base[b[0]].color;
+	      this.base[b[0]].legend = true;
+	   }
 	}
     }
     
     _LAPULSE.checkScale = function() {
 	if (_LAPULSE.map.getZoom() == 10) {
 	    _LAPULSE.scale.level = 1;
-	} else if (_LAPULSE.map.getZoom() >=11 && _LAPULSE.map.getZoom() <= 13) {
+	} else if (_LAPULSE.map.getZoom() >=11 && _LAPULSE.map.getZoom() <= 12) {
 	    _LAPULSE.scale.level = 2;
-	} else if (_LAPULSE.map.getZoom() >=14 && _LAPULSE.map.getZoom() <= 17) {
+	} else if (_LAPULSE.map.getZoom() >=13 && _LAPULSE.map.getZoom() <= 17) {
 	    _LAPULSE.scale.level = 3;
 	}
     }

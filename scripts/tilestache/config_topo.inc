@@ -25,7 +25,7 @@ $config = '
 		      "password": "'.$dbpass.'"
 		  },
 		  "queries": [
-		      "SELECT name, catname, '.$t.', basecat, __geometry__ from public.tilestache"
+		      "SELECT name, catname, '.$t.', osid, __geometry__ from public.tilestache_char"
 		  ]
 	      }
 	  },

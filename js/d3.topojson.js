@@ -6,7 +6,7 @@ var tooltip = d3.select("body")
 L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
     onAdd : function(map) {
         L.TileLayer.prototype.onAdd.call(this,map);
-        this._path = d3.geo.path().pointRadius(5).projection(function(d) {
+        this._path = d3.geo.path().pointRadius(_LAPULSE.map.getZoom()-9).projection(function(d) {
             var point = map.latLngToLayerPoint(new L.LatLng(d[1],d[0]));
             return [point.x,point.y];
         });
@@ -34,9 +34,10 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
                         .data(geoJson.features).enter()
                       .append("path")
                         .attr("d", function(d) { return self._path(d); })
+			.attr("osid", function(d) { return d.properties.osid; })
                         .style("fill", function(d) {
 			  for(var k in _LAPULSE.base) {
-			    if(_LAPULSE.base[k].id == d.properties.basecat)
+			    if(_LAPULSE.base[k].id == d.properties.osid)
 			       return "#"+_LAPULSE.base[k].color;
 			  }
                         })
@@ -53,8 +54,7 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
 			    return tooltip.style("visibility", "hidden");});
                 }
             });
-        } else {
-	    tile.nodes = d3.select(_LAPULSE.map._container).select("svg").append("g");
-	}
+	   
+        } 
     }
 });

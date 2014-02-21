@@ -25,7 +25,7 @@
 	    _LAPULSE.showPOI(_LAPULSE.time.hour);
 	});
     });
-    
+
 
 
 
