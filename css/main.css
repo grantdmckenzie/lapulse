@@ -15,3 +15,9 @@ div.tooltip {
 #map {
   cursor: pointer;
 }
+.vis {
+  z-index:1000;
+  visibility: hidden;
+  position: absolute;
+
+}

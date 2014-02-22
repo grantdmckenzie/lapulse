@@ -4,7 +4,8 @@
     * date 1/1/2014
     * project LACityPulse 
     * ========================================= */
-
+    var donut = null;
+    
     $(function() {
         _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 10);
 	_LAPULSE.map._initPathRoot();
@@ -13,7 +14,7 @@
 	new L.geoJson({"type": "LineString","coordinates":[[0,0],[0,0]]}).addTo(_LAPULSE.map);
 	
 	// Base Map
-	L.tileLayer('http://{s}.tile.cloudmade.com/d1abd7c11778439c95f45e03924ab211/115014/256/{z}/{x}/{y}.png', {maxZoom: 18,}).addTo(_LAPULSE.map);
+	L.tileLayer('http://{s}.tile.cloudmade.com/d1abd7c11778439c95f45e03924ab211/115014/256/{z}/{x}/{y}.png', {maxZoom: 16,}).addTo(_LAPULSE.map);
 	
 	_LAPULSE.constructBase();
 	_LAPULSE.drawLegend();
@@ -24,6 +25,8 @@
 	    _LAPULSE.checkScale();
 	    _LAPULSE.showPOI(_LAPULSE.time.hour);
 	});
+	
+	loadDonut();
     });
 
 
