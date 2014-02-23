@@ -4,20 +4,24 @@
     _LAPULSE.constructBase = function() {
     
 	this.getLayers = function() {
-	    for(var i=1; i<=24;i++) {
+	    for(var i=1; i<=3;i++) {
 		for(var key in this.base) {
 		    // Raster Tiles
-		    this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true});
+		    this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
+		    this.layers[2][key+'_'+i].addTo(this.map);
+		    this.layers[2][key+'_'+i].setOpacity(0);
 		}
 		// Overview Layer
-		this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true});
+		this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:10});
+		this.layers[1][i].addTo(this.map);
+		this.layers[1][i].setOpacity(0);
 		// Vector Tiles
 		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
 	    }
 	}    
 	this.base = {};
 	this.layers = [];
-	this.layers[1] = {};
+	this.layers[1] = [];
 	this.layers[2] = {};
 	this.layers[3] = {};
 
@@ -33,6 +37,24 @@
 	this.base.tra = {color:'cab2d6',layer:{},name:'Transportation', id: '9', legend:true}; 
 	
 	this.getLayers();
+    }
+    
+    _LAPULSE.addMoreLayers = function() {
+	  var max = this.time.hour+4;
+	  for(var i=this.time.hour+2; i<=max;i++) {
+	      for(var key in this.base) {
+		  // Raster Tiles
+		  this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
+		  this.layers[2][key+'_'+i].addTo(this.map);
+		  this.layers[2][key+'_'+i].setOpacity(0);
+	      }
+	      // Overview Layer
+	      this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom: 10});
+	      this.layers[1][i].addTo(this.map);
+	      this.layers[1][i].setOpacity(0);
+	      // Vector Tiles
+	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
+	  }
     }
     
     _LAPULSE.drawLegend = function() {
@@ -57,13 +79,24 @@
     }
     
     _LAPULSE.hideLevel1 = function() {
-	for(var key in this.layers[1]) {
-	    _LAPULSE.map.removeLayer(this.layers[1][key]);
+	for(var i=1;i<this.layers[1].length;i++) {
+	    if(i < this.time.hour && this.map.hasLayer(this.layers[1][i])) {
+	      this.map.removeLayer(this.layers[1][i]);
+	      this.layers[1][i] = null;
+	    } else if (this.map.hasLayer(this.layers[1][i])) {
+	      this.layers[1][i].setOpacity(0);
+	    }
 	}
     }
     _LAPULSE.hideLevel2 = function() {
 	for(var key in this.layers[2]) {
-	    _LAPULSE.map.removeLayer(this.layers[2][key]);
+	    var i = key.split("_");
+	    if(parseInt(i[1]) < this.time.hour && this.map.hasLayer(this.layers[2][key])) {
+	      this.map.removeLayer(this.layers[2][key]);
+	      this.layers[2][key] = null;
+	    } else if (this.map.hasLayer(this.layers[2][key])) {
+	      this.layers[2][key].setOpacity(0);
+	    }
 	}
     }
     _LAPULSE.hideLevel3 = function() {
@@ -79,7 +112,8 @@
 	      this.hideLevel1();
 	      this.hideLevel2();
 	      this.hideLevel3();
-	      this.layers[1][num].addTo(this.map);
+	      //this.layers[1][num].addTo(this.map);
+	      this.layers[1][num].setOpacity(1);
 	      
 	  } else if (this.scale.level == 2) {
 	      this.hideLevel1();
@@ -87,7 +121,8 @@
 	      this.hideLevel3();
 	      for(var key in this.layers[2]) {
 		  var x = key.split("_");
-		  this.layers[2][x[0]+"_"+num].addTo(this.map);
+		   this.layers[2][x[0]+"_"+num].setOpacity(1);
+		  // this.layers[2][x[0]+"_"+num].addTo(this.map);
 		  if (!this.base[x[0]].legend)
 		      this.layers[2][x[0]+"_"+num].setOpacity(0);
 	      }
@@ -101,6 +136,9 @@
       }
       if (this.scale.level == 3)
 	this.checkVectorVis();
+      
+      if (this.scale.level == this.scale.prevlevel && num != this.time.prev && this.time.hour%3 == 2)
+	  this.addMoreLayers();
       this.scale.prevlevel = this.scale.level;
       this.time.prev = num;
     }
