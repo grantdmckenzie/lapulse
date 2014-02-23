@@ -1,5 +1,9 @@
 
-    
+    var _prod = true;
+    if (_prod)
+	var _s = "stko-poi.geog.ucsb.edu";
+    else
+	var _s = "localhost";
     
     _LAPULSE.constructBase = function() {
     
@@ -7,16 +11,16 @@
 	    for(var i=1; i<=3;i++) {
 		for(var key in this.base) {
 		    // Raster Tiles
-		    this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
+		    this.layers[2][key+'_'+i] = new L.TileLayer("http://"+_s+"/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
 		    this.layers[2][key+'_'+i].addTo(this.map);
 		    this.layers[2][key+'_'+i].setOpacity(0);
 		}
 		// Overview Layer
-		this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:10});
+		this.layers[1][i] = new L.TileLayer("http://"+_s+"/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:10});
 		this.layers[1][i].addTo(this.map);
 		this.layers[1][i].setOpacity(0);
 		// Vector Tiles
-		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
+		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
 	    }
 	}    
 	this.base = {};
@@ -44,16 +48,16 @@
 	  for(var i=this.time.hour+2; i<=max;i++) {
 	      for(var key in this.base) {
 		  // Raster Tiles
-		  this.layers[2][key+'_'+i] = new L.TileLayer("http://localhost/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
+		  this.layers[2][key+'_'+i] = new L.TileLayer("http://"+_s+"/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
 		  this.layers[2][key+'_'+i].addTo(this.map);
 		  this.layers[2][key+'_'+i].setOpacity(0);
 	      }
 	      // Overview Layer
-	      this.layers[1][i] = new L.TileLayer("http://localhost/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom: 10});
+	      this.layers[1][i] = new L.TileLayer("http://"+_s+"/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom: 10});
 	      this.layers[1][i].addTo(this.map);
 	      this.layers[1][i].setOpacity(0);
 	      // Vector Tiles
-	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true, minZoom:13, maxZoom:16});
+	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true, minZoom:13, maxZoom:16});
 	  }
     }
     
