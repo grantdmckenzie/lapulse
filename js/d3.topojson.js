@@ -71,13 +71,18 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
 			})
 			.on("mouseover", function(d){
 			    setDonutData(d);
+			    $('.tooltip').html("<b>Category: </b>" + d.properties.catname);
+			    
+			    tooltip.style("visibility", "visible");
 			    return donut.style("visibility", "visible");})
 			.on("mousemove", function(d){
-			    // $('.tooltip').html("<b>Venue:</b> "+d.properties.name + "<br/><b>FS Category: </b>" + d.properties.catname + "<br/><b>Temporal Probability: </b>" + parseInt(d.properties.s1)/1000  );
+			    
 			  var p = _LAPULSE.map.latLngToLayerPoint(new L.LatLng(d.geometry.coordinates[1],d.geometry.coordinates[0]));
+			  tooltip.style("top", p.y+30+"px").style("left",p.x+40+"px");
 			  return donut.attr("transform", "translate("+p.x+","+p.y+")");})
-			    // return vis.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+			  // return vis.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 			.on("mouseout", function(){
+			    tooltip.style("visibility", "hidden");
 			    return donut.style("visibility", "hidden");})
 		
 		  _LAPULSE.VectorMarkerSize();

@@ -16,7 +16,7 @@
 		this.layers[1][i].addTo(this.map);
 		this.layers[1][i].setOpacity(0);
 		// Vector Tiles
-		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
+		this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
 	    }
 	}    
 	this.base = {};
@@ -53,7 +53,7 @@
 	      this.layers[1][i].addTo(this.map);
 	      this.layers[1][i].setOpacity(0);
 	      // Vector Tiles
-	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,});
+	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://localhost/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true, minZoom:13, maxZoom:16});
 	  }
     }
     
@@ -210,8 +210,19 @@
     _LAPULSE.increaseHour = function() {
 	// Update Time Label
 	var num = this.time.hour % 24;
+	if (this.time.hour % 24 == 0)
+	  var num = "12am";
+	else if (this.time.hour % 24 < 12)
+	    var num = num + "am";
+	else if (this.time.hour % 24 > 12)
+	    var num = num - 12 + "pm";
+	else if (this.time.hour % 24 == 12)
+	    var num = "12pm";
+	else
+	    var num = "12am";
+	    
 	var day = this.time.days[Math.floor(this.time.hour/24)];
-	$('#lbl').html(day + " " + num + ":00");
+	$('#lbl').html(num + " " + day);
 	
 	this.time.hour++;
 	this.showPOI(this.time.hour);
