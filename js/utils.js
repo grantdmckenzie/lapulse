@@ -1,5 +1,5 @@
 
-    var _prod = true;
+    var _prod = false;
     if (_prod)
 	var _s = "stko-poi.geog.ucsb.edu";
     else

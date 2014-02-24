@@ -16,7 +16,7 @@
       include 'config.inc';
       fwrite($file, $config);
       fclose($file);
-      $seed = "/home/grantdmckenzie/Downloads/TileStache-1.49.8/scripts/tilestache-seed.py -c /var/www/tilestache/configFiles/".$filename.".cfg -l ".$filename." -d /var/www/tilestache/ -b 33.5678749084473 -118.84309387207 34.3265800476074 -117.49584197998 -e png 12";
+      $seed = "/home/grantdmckenzie/Downloads/TileStache-1.49.8/scripts/tilestache-seed.py -c /var/www/tilestache/configFiles/".$filename.".cfg -l ".$filename." -d /var/www/tilestache/ -b 33.5678749084473 -118.84309387207 34.3265800476074 -117.49584197998 -e png 11 12";
       // echo $seed . "\n";
       exec($seed);
     }
