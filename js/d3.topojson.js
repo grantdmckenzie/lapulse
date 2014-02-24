@@ -73,19 +73,19 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
 			    setDonutData(d);
 			    $('.tooltip').html("<b>Category: </b>" + d.properties.catname);
 			    tooltip.style("visibility", "visible");
-			    tooltip.style("top", (event.pageY-15)+"px").style("left",(event.pageX+35)+"px");
+			    tooltip.style("top", (event.pageY-15)+"px").style("left",(event.pageX+60)+"px");
+			   
 			    return donut.style("visibility", "visible");})
 			.on("mousemove", function(d){
 			    
 			  var p = _LAPULSE.map.latLngToLayerPoint(new L.LatLng(d.geometry.coordinates[1],d.geometry.coordinates[0]));
 			  
-			  
 			  return donut.attr("transform", "translate("+p.x+","+p.y+")");})
 			  // return vis.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 			.on("mouseout", function(){
 			    tooltip.style("visibility", "hidden");
-			    return donut.style("visibility", "hidden");})
-		
+			    return donut.remove();})
+		    
 		  _LAPULSE.VectorMarkerSize();
                 }
             });

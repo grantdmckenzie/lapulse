@@ -4,7 +4,11 @@ var arc = null;
 
 var color = ['#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#6a3d9a','#fdbf6f','#ff7f00','#cab2d6'];
 var g = null;
-
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+};
 function loadDonut() {
 
 
@@ -12,7 +16,7 @@ function loadDonut() {
 	.sort(null);
 
     arc = d3.svg.arc()
-	.innerRadius(30)
+	.innerRadius(40)
 	.outerRadius(15);
 
     donut = d3.select(_LAPULSE.map._container).select("svg").append("g")
@@ -39,8 +43,15 @@ function setDonutData(d) {
 	var x = svm[d.properties.catname];
 	if (x.length > 0) {
 	  var y = x.slice(1);
-	  if(donut.style("visibility","visible")) {
-	      g = donut.selectAll(".arc")
+	  donut = d3.select(_LAPULSE.map._container).select("svg").append("g")
+	    .attr("width", 200)
+	    .attr("height", 200)
+	    .attr("id","thedonut")
+	    .style("visibility","visible")
+	    .append("g")
+	    .attr("transform", "translate(200,200)");
+	  // if(donut.style("visibility","visible")) {
+	      var g = donut.selectAll(".arc")
 		    .data(pie(y))
 		    .enter().append("g")
 		    .attr("class", "arc");
@@ -50,16 +61,29 @@ function setDonutData(d) {
 		    .style("fill", function(d,i) { return color[i]; });
 	      
 	      g.append("text")
-		    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-		    .attr("dy", ".35em")
+		    .attr("transform", function(d) {
+			  var c = arc.centroid(d),
+			      x = c[0],
+			      y = c[1],
+			      h = Math.sqrt(x*x + y*y);
+			  return "translate(" + (x/h * 26) +  ',' + (y/h * 26) +  ")"; 
+		      })
+		    .attr("dy", "0.3em")
 		    .style("text-anchor", "middle")
-		    .style("fill", "White")
-		    .style("font", "10px Arial")
+		    .style("fill", function(d,i) {  
+			if (i == 1 || i == 3 || i == 6 || i == 8)
+			    return "#333333";
+			else
+			    return "#ffffff";
+		      })
+		    .style("font", "9px Arial")
 		    .text(function(d,i) {
-		      return Math.round(y[i]*100) ; 
-		      
+			if (y[i] > 0.1)
+			return Math.round(y[i]*100)+"%" ; 
+			else
+			    return "";
 		    });
-	  }
+	  // }
 	}
     }
 }
