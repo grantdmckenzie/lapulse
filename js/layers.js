@@ -7,7 +7,7 @@
     var donut = null;
     
     $(function() {
-        _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 15);
+        _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 10);
 	_LAPULSE.map._initPathRoot();
 
 	// Add a fake GeoJSON line to coerce Leaflet into creating the <svg> tag that d3_geoJson needs
