@@ -67,7 +67,7 @@ L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
 			})
                         .style("fill-opacity", function(d) { 
 			  var x = "s"+_LAPULSE.time.hour;
-			  return parseInt(d.properties[x]+1)/300;
+			  return parseInt(d.properties[x])/200;
 			})
 			.on("mouseover", function(d){
 			    setDonutData(d);

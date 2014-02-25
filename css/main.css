@@ -22,3 +22,57 @@ div.tooltip {
   position: absolute;
 
 }
+
+#burstMode {
+    cursor: pointer;
+    position:relative;
+    float:right;
+    right:15px;
+    top:15px; 
+    padding:5px 20px 5px 20px;
+    background-color:#666666;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:bold;
+    width:76px;
+    text-align:center;
+    z-index:3000;
+    font-family: 'Rambla', sans-serif;
+    color:#999999;
+}
+#burstMode.available:hover {
+  background-color:#993333;
+  color:#ffffff;
+}
+#burstMode.available {
+  background-color:#990000;
+  color:#ffffff;
+}
+#burstMode.active {
+  background-color:#ff0000;
+  border: solid 2px #ffffff;
+  padding: 3px 18px 3px 18px;
+}
+
+#next {
+    cursor: pointer;
+    position:relative;
+    float:right;
+    clear:both;
+    right:10px;
+    top:15px; 
+    padding:5px 20px 5px 20px;
+    background-color:#ffa500;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:bold;
+    font-family: 'Rambla', sans-serif;
+    color:#ffffff;
+    width:76px;
+    text-align:center;
+    z-index:3000
+}
+#next:hover {
+  color:#333333;
+  background-color:#ffc733;
+}

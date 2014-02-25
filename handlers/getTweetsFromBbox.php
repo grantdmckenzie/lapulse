@@ -7,7 +7,7 @@
   $bbox = pg_escape_string($_GET['bbox']);
 
   $query = "SELECT lng, lat FROM tweets ";
-  $query .= "WHERE ts > (now()) AND tweets.geom && ";
+  $query .= "WHERE ts > (now() - interval '120 seconds') AND tweets.geom && ";
   $query .= "ST_MakeEnvelope(".$bbox.", 4326);";
   // echo $query . "\n";
   $res = pg_query($query) or die("DB Error");

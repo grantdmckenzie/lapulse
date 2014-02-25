@@ -19,7 +19,8 @@
 	</div>
 	<div id="map" style="background-color:#333333;width:100%;position:absolute;top:50px;bottom:0px;">
 	<div id="legend" style="position:relative;right:10px;float:right;clear:both;top:10px;height:200px;width:220px;background-color:#ffffff;border-radius:5px;padding:10px;font-family: verdana;font-size:10px;z-index:3000"></div>
-	<div id="next" style="cursor: pointer;position:relative;float:right;clear:both;right:10px;top:15px; padding:4px 20px 6px 20px;background-color:#ffa500;border-radius:5px;color:#333333;font-size:12px;font-weight:bold;font-family:verdana;width:25px;text-align:center;z-index:3000" onclick="_LAPULSE.increaseHour();">>></div>
+	<div id="next" onclick="_LAPULSE.increaseHour();">NEXT HOUR</div>
+	<div id="burstMode" onclick="_LAPULSE.BurstMode();">BURST MODE</div>
 	</div>
 	<div id="lbl" style="position:absolute;right:80px;width:300px;top:20px;font-size:25px;text-align:right;font-weight:bold;color:#eeeeee;z-index:11">12am SUNDAY</div>
 
@@ -32,6 +33,7 @@
 	<script src="js/utils.js"></script>
 	<script src="js/donuts.js"></script>
 	<script src="js/layers.js"></script>
+	<script src="js/tweets.js"></script>
 	<script src="js/svm.js"></script>
 
 </body>

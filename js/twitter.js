@@ -72,14 +72,14 @@
 	  .data(data)
 	  .enter().append("circle")
 	    .attr("r", "10")
-	    .attr('fill','red');
+	    .attr('stroke','red');
 	    // .attr('fillOpacity','0.0');
   
 	function update() {
 	  _LAPULSE.twitter.layer[_LAPULSE.twitter.layer-1].attr("cx",function(d) { return _map.latLngToLayerPoint(d.LatLng).x})
 	  _LAPULSE.twitter.layer[_LAPULSE.twitter.layer-1].attr("cy",function(d) { return _map.latLngToLayerPoint(d.LatLng).y})
 	  _LAPULSE.twitter.layer[_LAPULSE.twitter.layer-1].attr("r", "8")
-	  _LAPULSE.twitter.layer[_LAPULSE.twitter.layer-1].transition().duration(2000).attr('r',0.0).style('opacity',0.0).remove();
+	  _LAPULSE.twitter.layer[_LAPULSE.twitter.layer-1].transition().duration(2000).attr('r',20.0).style('opacity',0.0).remove();
 	}
 	// _map.on("viewreset", update);
 	update();
