@@ -46,7 +46,7 @@ var gtweets = null;
       var params = {'bbox':_LAPULSE.map.bounds.getSouthWest().lng + "," + _LAPULSE.map.bounds.getSouthWest().lat + "," + _LAPULSE.map.bounds.getNorthEast().lng + "," + _LAPULSE.map.bounds.getNorthEast().lat};
       
       $.ajax({
-	  url: _prod + "/lapulse/handlers/getTweetsFromBbox.php",
+	  url: "handlers/getTweetsFromBbox.php",
 	  type: "GET",
 	  data: params,
 	  dataType: 'json',
