@@ -51,8 +51,10 @@ var gtweets = null;
 	  data: params,
 	  dataType: 'json',
 	  success: function(data){
-	      // _LAPULSE.twitter.data = data;
-	      _LAPULSE.twitter.drawPoints(data);
+	      if(_burstmode)
+		_LAPULSE.twitter.drawPoints(data);
+	      else
+		 _LAPULSE.localContentOff();
 	  },
 	  error: function(a,b,c) {
 	      console.log(b);

@@ -1,9 +1,5 @@
 
-    var _prod = true;
-    if (_prod)
-	var _s = "stko-poi.geog.ucsb.edu";
-    else
-	var _s = "localhost";
+
     
     _LAPULSE.constructBase = function() {
     
