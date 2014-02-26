@@ -16,4 +16,4 @@
     _LAPULSE.const.tileBounds = L.latLngBounds(L.latLng(33.5846214294434, -118.838417053223), L.latLng(34.3280487060547, -117.515472412109));
     _LAPULSE.twitter = {};
     _LAPULSE.twitter.layer = [];
-    _LAPULSE.timer = null;
+    _LAPULSE.timer = null;	

@@ -37,6 +37,8 @@ var gtweets = null;
       _LAPULSE.timer = setInterval(function(){
 	_LAPULSE.twitter.getContent();
       },700);
+      var d = new Date();
+      
   }
   _LAPULSE.localContentOff = function() {
       clearInterval(_LAPULSE.timer);

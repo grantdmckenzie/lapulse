@@ -7,6 +7,16 @@
     var donut = null;
     
     $(function() {
+      
+	$('#close').on('click',function() {
+	    $('#loadingbg').fadeOut();
+	    $('#loading').fadeOut();
+	});
+	$('#loadingbg').on('click',function() {
+	    $('#loadingbg').fadeOut();
+	    $('#loading').fadeOut();
+	});
+      
         _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 10);
 	_LAPULSE.map._initPathRoot();
 
