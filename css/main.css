@@ -89,9 +89,9 @@ div.tooltip {
 }
 #loading{
   position:absolute;
-  width:400px;
+  width:600px;
   z-index:3101;
-  left:-220px;
+  left:-320px;
   margin-left:50%;
   margin-top:-220px;
   top:50%;
