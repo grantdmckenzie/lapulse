@@ -26,6 +26,7 @@ var prevBurstMode = false;
 	  _LAPULSE.toolburst_first++;
 	  _LAPULSE.localContentOff();
       } else if (_LAPULSE.map.getZoom() > 14 && _burstmode) {
+	   prevBurstMode = true;
 	  _LAPULSE.localContentOn();
       } else {
 	  $('#burstMode').removeClass('available');
@@ -38,15 +39,17 @@ var prevBurstMode = false;
   };	
   
   _LAPULSE.localContentOn = function() {
-      _LAPULSE.timer = setInterval(function(){
-	_LAPULSE.twitter.getContent();
-      },700);
-      this.time.beforeBurst = this.time.hour;
-      var date = new Date;
-      this.time.hour = date.getDay() * 24 + date.getHours()+1;
-      this.layers[3][this.time.hour] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+this.time.hour+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
-      this.showCurrent();
-      prevBurstMode = true;
+      if(!this.timer) {
+	_LAPULSE.timer = setInterval(function(){
+	  _LAPULSE.twitter.getContent();
+	},700);
+	this.time.beforeBurst = this.time.hour;
+	$('#lbl').animate({opacity: 0.2}, 500, 'linear').animate({opacity: 1}, 500, 'linear').animate({opacity: 0.2}, 500, 'linear').animate({opacity: 1}, 500, 'linear').css("color","#ee0000");
+	var date = new Date;
+	this.time.hour = date.getDay() * 24 + date.getHours()+1;
+	this.layers[3][this.time.hour] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+this.time.hour+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
+	this.showCurrent();
+      }
   }
   _LAPULSE.localContentOff = function() {
       clearInterval(_LAPULSE.timer);
@@ -54,6 +57,7 @@ var prevBurstMode = false;
       if(prevBurstMode) {
 	this.time.hour = this.time.beforeBurst;
 	prevBurstMode = false;
+	$('#lbl').css("color","#ffffff");
       }
       this.showCurrent();
   }
