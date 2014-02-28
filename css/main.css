@@ -89,16 +89,16 @@ div.tooltip {
 }
 #loading{
   position:absolute;
-  width:600px;
+  width:660px;
   z-index:3101;
-  left:-320px;
+  left:-340px;
   margin-left:50%;
-  margin-top:-220px;
+  margin-top:-260px;
   top:50%;
   background-color:#ffffff;
   padding:20px;
   font-family: 'Rambla', sans-serif;
-  height:400px;
+  height:500px;
   border-radius:10px;
   border:solid 2px #333333;
   box-shadow: 0px 0px 5px 5px #999999;
@@ -114,4 +114,41 @@ div.tooltip {
   top:10px;
   background-image: url('../img/close.png');
   cursor: pointer;
+}
+
+.arrow_box {
+	position: absolute;
+	background: #ffffff;
+	right:265px;
+	padding:10px 20px;
+	top:70px;
+	z-index:3000;
+	border-radius: 5px;
+	border: 1px solid #333333;
+	font-family: 'Rambla', sans-serif;
+	font-size: 12px;
+	display: none;
+}
+.arrow_box:after, .arrow_box:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #ffffff;
+	border-width: 10px;
+	margin-top: -10px;
+}
+.arrow_box:before {
+	border-color: rgba(51, 51, 51, 0);
+	border-left-color: #333333;
+	border-width: 11px;
+	margin-top: -11px;
 }

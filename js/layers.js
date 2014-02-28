@@ -18,6 +18,7 @@
 	});
       
         _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 10);
+	L.control.scale().addTo(_LAPULSE.map);
 	_LAPULSE.map._initPathRoot();
 
 	// Add a fake GeoJSON line to coerce Leaflet into creating the <svg> tag that d3_geoJson needs

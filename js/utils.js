@@ -71,9 +71,13 @@
 		var col = "#ffffff; background-image: url(\"img/hidden.png\");";
 	    else
 		var col = "#"+this.base[key].color+"; background-image: none;";
-		content += "<div id='"+key+"_c' onclick='_LAPULSE.toggleLayer(\""+key+"\");' style='cursor:pointer;margin:5px;border-radius:5px;width:10px;height:10px;clear:both;float:left;background-color:"+col+"'></div> ";
+		content += "<div title='Click to Toggle' id='"+key+"_c' onclick='_LAPULSE.toggleLayer(\""+key+"\");' style='cursor:pointer;margin:5px;border-radius:5px;width:10px;height:10px;clear:both;float:left;background-color:"+col+"'></div> ";
 		content += "<div style='float:left;margin-top:5px;'>"+this.base[key].name+"</div>";
 	  }
+	  if (this.tooltip_first == 1) {
+	      $('.arrow_box').delay(2000).fadeIn(2000).delay(5000).fadeOut(2000);
+	  }
+	  this.tooltip_first++;
 	}
 	document.getElementById('legend').innerHTML = content; 
     }

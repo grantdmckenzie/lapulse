@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>STKO: POI Pulse</title>
+	<title>POI Pulse</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -16,25 +16,13 @@
 	<div id="loadingbg"></div>
 	<div id="loading">
 	  <div id="close"></div>
-	  <p style="padding-top:10px;">
-	  Welcome to <b>POI Pulse</b>. POI <i>(Point of Interest)</i> Pulse presents a multi-granular, semantic signatures-based approach for the interactive visualization of big geosocial data.</p>
-	  <p>The volume, velocity, and variety at which data are now becoming
-available allow us to study urban environments based on human behavior at a
-spatial, temporal, and thematic granularity that was not achievable until now.
-Such data-driven approaches opens up additional, complementary perspectives on
-how urban systems function, especially if they are based on User-Generated Con-
-tent (UGC). While the data sources, e.g., social media, introduce specific biases,
-they also open up new possibilities for scientists and the broader public. For in-
-stance, they provide answers to questions that previously could only be addressed
-by complex simulations or extensive human participant surveys. Unfortunately,
-many of the required data are locked in data silos that are only accessible via
-restricted APIs. Even if these data could be fully accessed, their na ̈ıve processing
-and visualization would surpass the abilities of modern computer architectures.
-Finally, the established place schemata used to study urban spaces differ substan-
-tially from UGC-based Point of Interest (POI) schemata. In this work, we present
-a multi-granular, data-driven, and theory-informed approach that addressed the
-key issues outlined above by introducing the theoretical and technical framework
-to interactively explore the pulse of a city based on social media.</p>
+	  <p style="padding-top:-5px;">
+	  Welcome to <b>POI Pulse</b>. POI <i>(Point of Interest)</i> Pulse presents a multi-granular, semantic signatures-based<br/>approach for the interactive visualization of big geosocial data.</p>
+	  <p>This interactive visualization shows the pulse and activity pattern of approximately 170,000 points of interest in the Greater Los Angeles area. The data here represents both default individual activities in the region as well as real-time social behavior.</p>
+	  <p>At the initial map scale, a single color value is used to represent all user-contributed POI in the Greater Los Angeles area. The opacity of the markers indicates the default level of activity that occurs at this type of POI at this point in the week. Advancing through time <i>(NEXT HOUR button)</i> while visualizing the POI in this way gives you a good introduction to the flow of the city as a whole. Zooming in, the POI are split in to ten upper-level classes.   The opacity of the markers at this level shows the difference in activity probability between classes.  For example, the class of <i>Entertainment and Nightlife</i> is very prominent at 12am on Sunday (Saturday nightlife) while it is completely overshadowed by a class such as <i>Commercial Services</i> on Monday at 9am.
+	  </p><p>Zooming in further, the data format switches from image to vector tiles. Hovering your mouse over any POI at this level results in the lower-level category name appearing beside the POI as well as a donut-pie chart surrounding the marker.  This donut-pie chart is a technique employed to visually explain the upper-level class probabilities of each lower-level category, thus going beyond standard binary classification. The standard marker visualization forces each POI to be assigned a single color representing a single class, but in actuality, the POI may exhibit high probabilities in more than one class and the primary marker color could be ascertained by a very small margin. </p>
+	  <p>Lastly, clicking the <i>BURST MODE</i> button (enabled at a high zoom level) shows real-time Tweets and Foursquare check-in counts for specific POI.
+	  <p>Take some time to explore the map!</p>
 <!-- <div style="float:right;padding-top:10px"><a style="color:#006600;text-decoration:none" href="http://grantmckenzie.com/academics/McKenzie_poipulse2014.pdf" target="_blank">Read a draft of the paper here</a></div> -->
 	</div>
 	<div id="header" style="width:100%;height:50px;background-color:#000000;color:#ffffff;position:absolute;top:0px;box-shadow: 0px 0px 4px #999999;z-index:10">
@@ -47,7 +35,7 @@ to interactively explore the pulse of a city based on social media.</p>
 	<div id="burstMode" onclick="_LAPULSE.BurstMode();">BURST MODE</div>
 	</div>
 	<div id="lbl" style="position:absolute;right:80px;width:300px;top:20px;font-size:25px;text-align:right;font-weight:bold;color:#eeeeee;z-index:11">12am SUNDAY</div>
-
+	<div class="arrow_box">Click on the colored marker to toggle the layer visibility</div>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/d3.min.js" charset="utf-8"></script>
 	<script src="js/topojson.js"></script>
