@@ -3,6 +3,7 @@
 var svg_tweets = null;
 var gtweets = null;
   
+var prevBurstMode = false;
 
   _LAPULSE.BurstMode = function() {
       if ($('#burstMode').hasClass('active')) {
@@ -20,6 +21,9 @@ var gtweets = null;
     _LAPULSE.map.zoom = _LAPULSE.map.getZoom();
       if (_LAPULSE.map.getZoom() > 14 && !_burstmode) {
 	  $('#burstMode').addClass('available');
+	  if(_LAPULSE.toolburst_first == 0)
+	    $('#tooltip_burst').delay(2000).fadeIn(2000).delay(5000).fadeOut(2000);
+	  _LAPULSE.toolburst_first++;
 	  _LAPULSE.localContentOff();
       } else if (_LAPULSE.map.getZoom() > 14 && _burstmode) {
 	  _LAPULSE.localContentOn();
@@ -37,12 +41,21 @@ var gtweets = null;
       _LAPULSE.timer = setInterval(function(){
 	_LAPULSE.twitter.getContent();
       },700);
-      var d = new Date();
-      
+      this.time.beforeBurst = this.time.hour;
+      var date = new Date;
+      this.time.hour = date.getDay() * 24 + date.getHours()+1;
+      this.layers[3][this.time.hour] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+this.time.hour+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
+      this.showCurrent();
+      prevBurstMode = true;
   }
   _LAPULSE.localContentOff = function() {
       clearInterval(_LAPULSE.timer);
       _LAPULSE.timer = null;
+      if(prevBurstMode) {
+	this.time.hour = this.time.beforeBurst;
+	prevBurstMode = false;
+      }
+      this.showCurrent();
   }
   _LAPULSE.twitter.getContent = function() {
       var params = {'bbox':_LAPULSE.map.bounds.getSouthWest().lng + "," + _LAPULSE.map.bounds.getSouthWest().lat + "," + _LAPULSE.map.bounds.getNorthEast().lng + "," + _LAPULSE.map.bounds.getNorthEast().lat};

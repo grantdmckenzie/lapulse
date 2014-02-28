@@ -116,12 +116,18 @@ div.tooltip {
   cursor: pointer;
 }
 
+#tooltip_legend {
+  position: absolute;
+  top:70px;
+}
+#tooltip_burst {
+  position: absolute;
+  top:280px;
+}
 .arrow_box {
-	position: absolute;
 	background: #ffffff;
 	right:265px;
 	padding:10px 20px;
-	top:70px;
 	z-index:3000;
 	border-radius: 5px;
 	border: 1px solid #333333;

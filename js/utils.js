@@ -75,7 +75,7 @@
 		content += "<div style='float:left;margin-top:5px;'>"+this.base[key].name+"</div>";
 	  }
 	  if (this.tooltip_first == 1) {
-	      $('.arrow_box').delay(2000).fadeIn(2000).delay(5000).fadeOut(2000);
+	      $('#tooltip_legend').delay(2000).fadeIn(2000).delay(5000).fadeOut(2000);
 	  }
 	  this.tooltip_first++;
 	}
@@ -212,22 +212,25 @@
     }
     
     _LAPULSE.increaseHour = function() {
-	// Update Time Label
-	var num = this.time.hour % 24;
-	if (this.time.hour % 24 == 0)
+	this.time.hour++;
+	this.showCurrent();
+    }
+    
+    _LAPULSE.showCurrent = function() {
+     	// Update Time Label
+	var num = (this.time.hour-1) % 24;
+	if (num == 0)
 	  var num = "12am";
-	else if (this.time.hour % 24 < 12)
+	else if (num % 24 < 12)
 	    var num = num + "am";
-	else if (this.time.hour % 24 > 12)
+	else if (num % 24 > 12)
 	    var num = num - 12 + "pm";
-	else if (this.time.hour % 24 == 12)
+	else if (num % 24 == 12)
 	    var num = "12pm";
 	else
 	    var num = "12am";
 	    
 	var day = this.time.days[Math.floor(this.time.hour/24)];
 	$('#lbl').html(num + " " + day);
-	
-	this.time.hour++;
-	this.showPOI(this.time.hour);
+	this.showPOI(this.time.hour); 
     }

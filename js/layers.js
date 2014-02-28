@@ -34,7 +34,7 @@
 	
 	_LAPULSE.map.on('moveend', function(e) {
 	    _LAPULSE.checkScale();
-	    _LAPULSE.showPOI(_LAPULSE.time.hour);
+	    // _LAPULSE.showPOI(_LAPULSE.time.hour);
 	    _LAPULSE.checkTweetRegion();
 	});
 	

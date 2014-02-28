@@ -1,7 +1,7 @@
     // CONFIG
     
     
-    var _prod = false; // Change for local or server
+    var _prod = true; // Change for local or server
     
     var _s = _prod ? "stko-poi.geog.ucsb.edu" : "localhost";
     var _burstmode = false;
@@ -18,3 +18,5 @@
     _LAPULSE.twitter.layer = [];
     _LAPULSE.timer = null;	
     _LAPULSE.tooltip_first = 0;
+    _LAPULSE.toolburst_first = 0;
+    _LAPULSE.time.beforeBurst = 0;
