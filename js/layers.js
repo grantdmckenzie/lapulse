@@ -16,6 +16,9 @@
 	    $('#loadingbg').fadeOut();
 	    $('#loading').fadeOut();
 	});
+	$('#next').on('click',function() {
+	     _LAPULSE.increaseHour();
+	});
       
         _LAPULSE.map = L.map('map').setView([33.968064, -118.171692], 10);
 	L.control.scale().addTo(_LAPULSE.map);

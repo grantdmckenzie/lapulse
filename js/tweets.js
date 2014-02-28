@@ -49,6 +49,8 @@ var prevBurstMode = false;
 	this.time.hour = date.getDay() * 24 + date.getHours()+1;
 	this.layers[3][this.time.hour] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+this.time.hour+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true,maxZoom:16, minZoom:13});
 	this.showCurrent();
+	$('#next').addClass('disabled');
+	$('#next').unbind('click');
       }
   }
   _LAPULSE.localContentOff = function() {
@@ -58,7 +60,12 @@ var prevBurstMode = false;
 	this.time.hour = this.time.beforeBurst;
 	prevBurstMode = false;
 	$('#lbl').css("color","#ffffff");
+	$('#next').removeClass('disabled');
+	$('#next').on('click',function() {
+	     _LAPULSE.increaseHour();
+	});
       }
+      
       this.showCurrent();
   }
   _LAPULSE.twitter.getContent = function() {

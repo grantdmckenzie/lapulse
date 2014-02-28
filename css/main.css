@@ -53,7 +53,11 @@ div.tooltip {
   border: solid 2px #ffffff;
   padding: 3px 18px 3px 18px;
 }
-
+#burstMode.active:hover {
+  background-color:#ff0000;
+  border: solid 2px #ffffff;
+  padding: 3px 18px 3px 18px;
+}
 #next {
     cursor: pointer;
     position:relative;
@@ -71,6 +75,14 @@ div.tooltip {
     width:76px;
     text-align:center;
     z-index:3000
+}
+#next.disabled {
+  background-color:#666666;
+  color:#999999;
+}
+#next.disabled:hover {
+  background-color:#666666;
+  color:#999999;
 }
 #next:hover {
   color:#333333;
