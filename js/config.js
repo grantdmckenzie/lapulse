@@ -1,7 +1,7 @@
     // CONFIG
     
     
-    var _prod = false; // Change for local or server
+    var _prod = true; // Change for local or server
     
     var _s = _prod ? "stko-poi.geog.ucsb.edu" : "localhost";
     var _burstmode = false;
