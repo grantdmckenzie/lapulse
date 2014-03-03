@@ -1,7 +1,7 @@
     // CONFIG
     
     
-    var _prod = true; // Change for local or server
+    var _prod = false; // Change for local or server
     
     var _s = _prod ? "stko-poi.geog.ucsb.edu" : "localhost";
     var _burstmode = false;
@@ -16,6 +16,8 @@
     _LAPULSE.const.tileBounds = L.latLngBounds(L.latLng(33.5846214294434, -118.838417053223), L.latLng(34.3280487060547, -117.515472412109));
     _LAPULSE.twitter = {};
     _LAPULSE.twitter.layer = [];
+    _LAPULSE.herenow = {};
+    _LAPULSE.herenow.layer = [];
     _LAPULSE.timer = null;	
     _LAPULSE.tooltip_first = 0;
     _LAPULSE.toolburst_first = 0;

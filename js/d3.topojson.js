@@ -2,10 +2,6 @@ var tooltip = d3.select("body")
 	.append("div")
 	.attr("class","tooltip")
 	.text("a simple tooltip");
-	
-
-
-
 
 L.TileLayer.d3_topoJSON =  L.TileLayer.extend({
     onAdd : function(map) {

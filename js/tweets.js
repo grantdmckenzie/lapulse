@@ -2,6 +2,8 @@
  // _LAPULSE.map._initPathRoot();
 var svg_tweets = null;
 var gtweets = null;
+var svg_herenow = null;
+var gherenow = null;
   
 var prevBurstMode = false;
 
@@ -34,8 +36,13 @@ var prevBurstMode = false;
 	  _burstmode = false;
 	  _LAPULSE.localContentOff();
       }
+      
       svg_tweets = d3.select(_LAPULSE.map._container).select("svg");
       gtweets = svg_tweets.append("g");
+      svg_herenow = d3.select(_LAPULSE.map._container).select("svg");
+      gherenow = svg_tweets.append("g");
+      // gherenow.selectAll("circle").remove();
+      svg_herenow.selectAll("text").remove();
   };	
   
   _LAPULSE.localContentOn = function() {
@@ -51,6 +58,7 @@ var prevBurstMode = false;
 	this.showCurrent();
 	$('#next').addClass('disabled');
 	$('#next').unbind('click');
+	_LAPULSE.herenow.getPoints();
       }
   }
   _LAPULSE.localContentOff = function() {
@@ -112,5 +120,60 @@ var prevBurstMode = false;
 	}
 	// _LAPULSE.map.on("viewreset", update);
 	update();
+  }
+  
+  // HERE NOW
+  
+  _LAPULSE.herenow.getPoints = function() {
+      var params = {'bbox':_LAPULSE.map.bounds.getSouthWest().lng + "," + _LAPULSE.map.bounds.getSouthWest().lat + "," + _LAPULSE.map.bounds.getNorthEast().lng + "," + _LAPULSE.map.bounds.getNorthEast().lat};
+      var loadingd = "<div id='herenowloading' style='width:200px;height:50px;background-color:#ffffff;position:absolute;z-index:300;border-radius:5px;border:solid 1px #333333;padding:10px 20px;top:270px;right:10px;text-align:center;'>Loading Current Popularity Counts<img src='img/loading.gif'/></div>";
+      $('#map').append(loadingd);
+      $.ajax({
+	  url: "handlers/getPointsFromBbox.php",
+	  type: "GET",
+	  data: params,
+	  dataType: 'json',
+	  success: function(data){
+	      if(_burstmode)
+		_LAPULSE.herenow.drawPoints(data);
+	      else
+		 _LAPULSE.localContentOff();
+	      $('#herenowloading').fadeOut();
+	  },
+	  error: function(a,b,c) {
+	      console.log(b);
+	  }
+      });
+  }
+  
+  _LAPULSE.herenow.drawPoints = function(data) {
+     
+	data.forEach(function(d) {
+	  d.LatLng = new L.LatLng(d.lat,d.lng)
+	});
+      _LAPULSE.herenow.layer.push();
+      _LAPULSE.herenow.layer[_LAPULSE.herenow.layer-1] = gherenow.selectAll("circle")
+	  .data(data)
+	  .enter().append("circle")
+	    .attr("r", "10")
+	    .style("stroke-opacity", 0.0)
+	    .style("fill","#000000")
+	    .style("fill-opacity",0.2);
+
+	function update() {
+	  _LAPULSE.herenow.layer[_LAPULSE.twitter.layer-1].attr("cx",function(d) { return _LAPULSE.map.latLngToLayerPoint(d.LatLng).x})
+	  _LAPULSE.herenow.layer[_LAPULSE.twitter.layer-1].attr("cy",function(d) { return _LAPULSE.map.latLngToLayerPoint(d.LatLng).y})
+	  _LAPULSE.herenow.layer[_LAPULSE.twitter.layer-1].attr("r", "10");
+	}
+	update();
+	
+	data.forEach(function(d) {
+	 gherenow.append("text")
+	  .attr('dx',function() { return _LAPULSE.map.latLngToLayerPoint(d.LatLng).x - 4})
+	  .attr('dy',function() { return _LAPULSE.map.latLngToLayerPoint(d.LatLng).y + 5})
+	  .style("font", "14px Arial")
+	  .style("fill", "#ffffff")
+	  .text(d.count);
+	});
   }
   
