@@ -42,10 +42,19 @@
 	});
 	
 	loadDonut();
+	document.onkeydown = checkKey;
+
     });
 
 
+  function checkKey(e) {
 
+      e = e || window.event;
+
+      if (e.keyCode == '39') {
+	  _LAPULSE.increaseHour();
+      }
+  }
 
 
   

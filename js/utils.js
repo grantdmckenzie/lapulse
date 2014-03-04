@@ -230,7 +230,7 @@
 	else
 	    var num = "12am";
 	    
-	var day = this.time.days[Math.floor(this.time.hour/24)];
+	var day = this.time.days[Math.floor((this.time.hour-1)/24)];
 	$('#lbl').html(num + " " + day);
 	this.showPOI(this.time.hour); 
     }
