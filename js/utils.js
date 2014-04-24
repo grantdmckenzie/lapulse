@@ -57,6 +57,23 @@
 	  }
     }
     
+    _LAPULSE.addEvenMoreLayers = function() {
+	  var max = this.time.hour+2;
+	  for(var i=this.time.hour; i<=max;i++) {
+	      for(var key in this.base) {
+		  // Raster Tiles
+		  this.layers[2][key+'_'+i] = new L.TileLayer("http://"+_s+"/tilestache/"+this.base[key].id+"_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom:12, minZoom:11});
+		  this.layers[2][key+'_'+i].addTo(this.map);
+		  this.layers[2][key+'_'+i].setOpacity(0);
+	      }
+	      // Overview Layer
+	      this.layers[1][i] = new L.TileLayer("http://"+_s+"/tilestache/base_"+i+"/{z}/{x}/{y}.png", {bounds:this.const.tileBounds, unloadInvisibleTiles: true, maxZoom: 10});
+	      this.layers[1][i].addTo(this.map);
+	      this.layers[1][i].setOpacity(0);
+	      // Vector Tiles
+	      this.layers[3][i] = new L.TileLayer.d3_topoJSON("http://"+_s+"/tilestache/vectiles_"+i+"/{z}/{x}/{y}.topojson", {layerName: "vectile",unloadInvisibleTiles: true, minZoom:13, maxZoom:16});
+	  }
+    }  
     _LAPULSE.drawLegend = function() {
 	$('#legend').html("");
 	var content = "";

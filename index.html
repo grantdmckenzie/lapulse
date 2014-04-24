@@ -32,14 +32,44 @@
 	</div>
 	<div id="header" style="width:100%;height:50px;background-color:#000000;color:#ffffff;position:absolute;top:0px;box-shadow: 0px 0px 4px #999999;z-index:10">
 	  <div style="padding-left:20px;float:left;"><h2>POI PULSE</h2></div>
-	  <div style="padding-right:10px;float:right;padding-top:10px;"><a href="http://stko.geog.ucsb.edu" target="_blank"><img src="img/stko.png" style="height:30px;background-color:#ffffff;border-radius:2px"></a></div>
+	  <div style="padding-right:10px;float:right;padding-top:10px;">
+	    <a href="http://stko.geog.ucsb.edu" target="_blank"><img src="img/stko.png" style="height:30px;background-color:#ffffff;border-radius:2px"></a>
+	  </div>
 	</div>
 	<div id="map" style="background-color:#333333;width:100%;position:absolute;top:50px;bottom:0px;">
 	<div id="legend" style="position:relative;right:10px;float:right;clear:both;top:10px;height:200px;width:220px;background-color:#ffffff;border-radius:5px;padding:10px;font-family: verdana;font-size:10px;z-index:3000"></div>
 	<div id="next">NEXT HOUR</div>
 	<div id="burstMode" onclick="_LAPULSE.BurstMode();">BURST MODE</div>
 	</div>
-	<div id="lbl" style="position:absolute;right:80px;width:300px;top:20px;font-size:25px;text-align:right;font-weight:bold;color:#eeeeee;z-index:11">12am SUNDAY</div>
+	<div id="lbl" style="position:absolute;right:90px;width:300px;top:20px;font-size:25px;text-align:right;font-weight:bold;color:#eeeeee;z-index:11">12am SUNDAY</div>
+	<div id="ddarrow" title="Change Time"></div>
+	<div id="choosetime">
+	  <select id="choose_time">
+	    <option value="1">1</option>
+	    <option value="2">2</option>
+	    <option value="3">3</option>
+	    <option value="4">4</option>
+	    <option value="5">5</option>
+	    <option value="6">6</option>
+	    <option value="7">7</option>
+	    <option value="8">8</option>
+	    <option value="9">9</option>
+	    <option value="10">10</option>
+	    <option value="11">11</option>
+	    <option value="0" selected>12</option>
+	  </select>
+	  <select id="choose_ap"><option value="am">am</option><option value="pm">pm</option></select>
+	  <select id="choose_date">
+	    <option value="0">Sunday</option>
+	    <option value="1">Monday</option>
+	    <option value="2">Tuesday</option>
+	    <option value="3">Wednesday</option>
+	    <option value="4">Thursday</option>
+	    <option value="5">Friday</option>
+	    <option value="6">Saturday</option>
+	  </select>
+	  <div id="choose_submit">ENTER</div>
+	</div>
 	<div id="tooltip_legend" class="arrow_box">Click on the colored marker to toggle the layer visibility</div>
 	<div id="tooltip_burst" class="arrow_box">Click to view live Tweets and real-time check-in counts</div>
 	
